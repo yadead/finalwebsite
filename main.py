@@ -1,26 +1,30 @@
-import sqlite3
-database_name = "
+from DATABASE.database import signup, signin
 
-username = "jim"
-password = "123"
-database_name = "database.db"
-table_name = "user_table"
+def sign_up():
+    username = input("Username: ")
+    password = input("Password: ")
+    signup(username, password)
+    print(f"User '{username}' has been signed up")
 
+def sign_in():
+    username = input("Username: ")
+    password = input("Password: ")
+    if signin(username, password):
+        print(f"{username}has been logged in")
+    else:
+        print("Invalid username or password. Please try again.")
 
-connection = sqlite3.connect(database_name)
-cursor = connection.cursor()
+def menu():
+    while True:
+        choice = input("Choose an option:\n1. Sign In\n2. Sign Up\n3. Exit\n")
+        if choice == "1":
+            sign_in()
+        elif choice == "2":
+            sign_up()
+        elif choice == "3":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter 1, 2, or 3.")
 
-
-query = f"INSERT INTO user_table (username, password) 
-        VALUES ({username}, {password};"
-
-cursor.execute(query, (username, password))
-
-
-connection.commit()
-
-
-print(f"User '{username}' added successfully.")
-
-
-connection.close()
+menu()
