@@ -22,7 +22,6 @@ def signup(username, password):
     connection.commit()
 
 def signin(username, password):
-    """Check if a user exists in the database."""
     query = f"SELECT * FROM {table_name} WHERE username = ? AND password = ?;"
     cursor.execute(query, (username, password))
     result = cursor.fetchone()
