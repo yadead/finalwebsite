@@ -1,5 +1,5 @@
 from DATABASE.database import signup, signin
-from DATABASE.database_diary import diary_entry
+from DATABASE.database_diary import diary_entry, sdevname
 from datetime import datetime
 import math
 
@@ -22,6 +22,7 @@ def sign_in():
         print("Invalid username or password. Please try again.")
 
 def Create_entry():
+    print(last_id)
     Developer = devname
     print(f"Developer: {Developer}")
     Project = input("Project Name: ")
@@ -34,25 +35,52 @@ def Create_entry():
     total_minutes = Time_Worked.total_seconds() / 60
     rounded_minutes = math.ceil(total_minutes / 15) * 15
     rounded_hours = rounded_minutes / 60
+    Time_Worked = rounded_hours
+    print(f"Time Worked: {Time_Worked} hours")
     now = datetime.now()
     Diary_Entry = now.strftime("%H:%M %d/%B/%Y")
     print(f"Diary_Entry: {Diary_Entry}")
-    Time_Worked = rounded_hours
-    print(f"Time Worked: {Time_Worked} hours")
     Repo = input("Repository Link: ")
     Developer_Notes = input("Developer Notes: ")
     diary_entry(Developer, Project, Start_Time, End_Time, Diary_Entry, Time_Worked, Repo, Developer_Notes)
     print("Diary entry added")
 
+def sdeveloper_name():
+    global sdev_name_choice
+    sdev_name_choice = input("Developer name: ")  
+
+    dev_name_results = sdevname(sdev_name_choice)
+
+    if dev_name_results:  
+        for dev in dev_name_results:  
+            print(" || ".join(map(str, dev)))
+    else:
+        print("No results found. Please try again.")
+
+    respon
+
+
+
+
+# def sproject_name():
+
+
+
+
+# def sdiary_entry_time():
+
+
 def search_entry():
-    while True:
-        choice = input("search by:\n1. Create Entry\n2. Lookup Entry\n3. Sign Out\n")
+    while True: 
+        choice = input("search by:\n1. Developer Name\n2. Project Name\n3. Diary entry time\n4. Go Back\n")
         if choice == "1":
-            Create_entry()
+            sdeveloper_name()
         elif choice == "2":
-            search_entry()
+            sproject_name()
         elif choice == "3":
-            menu()
+            sdiary_entry_time()
+        elif choice == "4":
+            menu2()
         else:
             print("Invalid choice. Please enter 1, 2, or 3.")
 
