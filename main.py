@@ -1,5 +1,5 @@
 from DATABASE.database import signup, signin
-from DATABASE.database_diary import diary_entry, sdevname
+from DATABASE.database_diary import diary_entry, sdevname, sCHOICEID
 from datetime import datetime
 import math
 
@@ -21,8 +21,9 @@ def sign_in():
     else:
         print("Invalid username or password. Please try again.")
 
+
+
 def Create_entry():
-    print(last_id)
     Developer = devname
     print(f"Developer: {Developer}")
     Project = input("Project Name: ")
@@ -42,22 +43,37 @@ def Create_entry():
     print(f"Diary_Entry: {Diary_Entry}")
     Repo = input("Repository Link: ")
     Developer_Notes = input("Developer Notes: ")
-    diary_entry(Developer, Project, Start_Time, End_Time, Diary_Entry, Time_Worked, Repo, Developer_Notes)
-    print("Diary entry added")
+    new_id = diary_entry(Developer, Project, Start_Time, End_Time, Diary_Entry, Time_Worked, Repo, Developer_Notes)
+    print(f"Diary entry added with ID: {new_id}")
+
+def searchID():
+    choiceid = input("Enter ID: ")
+    resultid = sCHOICEID(choiceid)
+    if resultid:
+        developer, project, start_time, end_time, time_worked, diary_entry, repo, dev_notes = resultid
+        print(f"Developer: {developer}")
+        print(f"Project Name: {project}")
+        print(f"Start Time (hh:mm dd/mm/yyyy): {start_time}")
+        print(f"End Time (hh:mm dd/mm/yyyy): {end_time}")
+        print(f"Time Worked: {time_worked} hours")
+        print(f"Diary_Entry: {diary_entry}")
+        print(f"Repository Link: {repo}")
+        print(f"Developer Notes: {dev_notes}")
+
+    else:
+        print("Invalid ID")
 
 def sdeveloper_name():
     global sdev_name_choice
     sdev_name_choice = input("Developer name: ")  
 
-    dev_name_results = sdevname(sdev_name_choice)
+    dev_name_results = sdevname(sdev_name_choice,)
 
     if dev_name_results:  
         for dev in dev_name_results:  
             print(" || ".join(map(str, dev)))
     else:
         print("No results found. Please try again.")
-
-    respon
 
 
 
@@ -70,16 +86,19 @@ def sdeveloper_name():
 # def sdiary_entry_time():
 
 
+
+
 def search_entry():
     while True: 
-        choice = input("search by:\n1. Developer Name\n2. Project Name\n3. Diary entry time\n4. Go Back\n")
-        if choice == "1":
+        choicese = input("search by:\n1. Developer Name\n2. Project Name\n3. Diary entry time\n4. Go Back\n")
+        if choicese == "1":
             sdeveloper_name()
-        elif choice == "2":
+            searchID()
+        elif choicese == "2":
             sproject_name()
-        elif choice == "3":
+        elif choicese == "3":
             sdiary_entry_time()
-        elif choice == "4":
+        elif choicese == "4":
             menu2()
         else:
             print("Invalid choice. Please enter 1, 2, or 3.")
@@ -91,26 +110,26 @@ def delete_entry():
 
 def menu():
     while True:
-        choice = input("Choose an option:\n1. Sign In\n2. Sign Up\n3. Exit\n")
-        if choice == "1":
+        choicem = input("Choose an option:\n1. Sign In\n2. Sign Up\n3. Exit\n")
+        if choicem == "1":
             sign_in()
-        elif choice == "2":
+        elif choicem == "2":
             sign_up()
-        elif choice == "3":
+        elif choicem == "3":
             exit()
         else:
             print("Invalid choice. Please enter 1, 2, or 3.")
 
 def menu2():
     while True:
-        choice = input("Choose an option:\n1. Create Entry\n2. Lookup Entry\n3. Delete Entry\n4. Sign Out\n")
-        if choice == "1":
+        choicem2 = input("Choose an option:\n1. Create Entry\n2. Lookup Entry\n3. Delete Entry\n4. Sign Out\n")
+        if choicem2 == "1":
             Create_entry()
-        elif choice == "2":
+        elif choicem2 == "2":
             search_entry()
-        elif choice == "3":
+        elif choicem2 == "3":
             delete_entry()
-        elif choice == "4":
+        elif choicem2 == "4":
             menu()
             sign_in(devname) == None
         else:
